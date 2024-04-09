@@ -1,0 +1,40 @@
+$colors: (
+    "c-white": #fff,
+    "c-black": #000,
+    "c-dark-blue": #002244,
+    "c-medium-blue": #5d76a9,
+    "c-blue": #0000ff,
+    "c-grey": #a8a7a7
+);
+
+$sizes: (
+    "s-navbar": 120rem,
+    "s-body": 120rem,
+    "s-general-padding": 0 8rem,
+    "s-general-padding-mobile": 0 1rem,
+    "s-margin-top": 10rem 0 0 0,
+    "s-margin-top-banner": 5rem 0 0 0,
+    "s-margin-bottom-banner": 0 0 5rem,
+    "s-margin-blocks": 8rem 0,
+    "s-margin-blocks-mobile": 4rem 0,
+    "s-margin-elements": 4rem 0,
+    "s-border-radius-button": 0.25rem,
+    "s-border-radius-textField": 0.125rem,
+    "s-logo": 9rem
+);
+
+$font-size: (
+    "fs-button": 1em,
+    "fs-big-degre": 8em,
+    "fs-big-weather": 3em,
+    "fs-small-title": 1em,
+
+    "fs-detail-paragraph": 0.7rem,
+    "fs-extra-small-button": 0.8rem,
+    "fs-extra-small": 0.9rem,
+    "fs-small": 1rem,
+    "fs-medium": 1.5rem,
+    "fs-big": 2rem,
+    "fs-extra-big": 3rem,
+    "fs-titular-big": 4rem
+);
