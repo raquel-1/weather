@@ -1,5 +1,4 @@
 <script setup>
-
 import AsideMenu from "./components/AsideMenu.vue";
 import AllView from './components/AllView.vue'
 
