@@ -41,12 +41,13 @@ import IconCros from"@/components/icons/IconCros.vue"
 <style scoped lang="scss" >
     
     .aside{
-        width: 20%;
+        width: 100%;
         height: 100%;
         background-color: map-get($map: $colors, $key: c-medium-blue);
         padding: 3em;
         margin: 0;
         overflow: hidden;
+        min-width: 26.5em;
         
     
         display:grid;

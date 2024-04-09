@@ -26,7 +26,7 @@ import AllView from './components/AllView.vue'
   padding: 0;
   margin: 0;
   display: grid;
-  grid-template-columns: 180em 1fr;
+  grid-template-columns: minmax(27rem ,30%) 1fr;
 
 }
 

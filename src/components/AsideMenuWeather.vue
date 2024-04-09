@@ -39,6 +39,7 @@
         padding: 3em;
         margin: 0;
         overflow: hidden;
+        min-width: 26.5em;
         
     
         display:grid;

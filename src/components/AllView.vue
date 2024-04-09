@@ -51,6 +51,7 @@
             font-size: 1em;
         }
     }
+    
     &__week{
         background-color: darkmagenta;
     }
