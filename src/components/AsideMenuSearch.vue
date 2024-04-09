@@ -19,18 +19,18 @@ import IconCros from"@/components/icons/IconCros.vue"
                 <input type="text" class="input-search" placeholder="Search location" />
                 <button class="button-search">Search</button>
         </div> 
-        <div class="aside__result result">
-            <div class="result__location">
+        <ul class="aside__result result">
+            <li class="result__location">
                 <h3 class="title">Madrid</h3>
-            </div>
-            <div class="result__location">
+            </li>
+            <li class="result__location">
                 <h3  class="title">Barcelona</h3>
-            </div>
-            <div class="result__location">
+            </li>
+            <li class="result__location">
                 <h3  class="title">Alicante</h3>
-            </div>
+            </li>
             
-        </div>
+        </ul>
         
     
     </aside>
@@ -89,8 +89,9 @@ import IconCros from"@/components/icons/IconCros.vue"
 
         &__result{
             display: grid;
-            grid-template-rows: repeat(3, 3em); /* Distribuir en columnas, cada una de 200px de ancho mínimo */
-            gap: 10px; /* Espacio entre las columnas */
+            grid-template-rows: repeat(3, 3em); 
+            gap: 10px; 
+            list-style: none;
         }
         .result{
             &__location{
@@ -109,7 +110,7 @@ import IconCros from"@/components/icons/IconCros.vue"
 
                 &:hover{
                     border: 0.1em solid map-get($map: $colors, $key: c-white);
-                    padding: 0; // Eliminar el relleno al hacer hover
+                    padding: 0; 
                 }
             }
         }
