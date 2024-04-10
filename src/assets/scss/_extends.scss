@@ -1,0 +1,12 @@
+%today-weather-box {
+    @include flex($direction: column, $align_items: center, $justify_content: space-evenly);
+    background-color: map-get($map: $colors, $key: c-medium-blue);
+    padding: 1.5em 0;
+    .title {
+        font-size: map-get($map: $font-size, $key: fs-small-title);
+        padding-bottom: 0.5em;
+    }
+    .number {
+        font-size: 3.5em;
+    }
+}

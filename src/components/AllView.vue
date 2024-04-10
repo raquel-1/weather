@@ -1,5 +1,5 @@
 <script setup>
-
+import IconWindToday from "@/components/icons/IconWindToday.vue"
 
 </script>
 
@@ -10,33 +10,77 @@
         <button class="mode__button-leter">ºC</button>
         <button class="mode__button-leter">ºF</button>
     </div>
-    <div class="all-view__week">
-        
+    <div class="all-view__week week">
+        <div class="week__day">
+            <p class="title">Tomorrow</p>
+            <div class="icon"></div>
+            <div class="degrees">
+                <span>16ºc</span>
+                <span>11ºC</span>
+            </div>
+        </div>
+        <div class="week__day">
+            <p class="title">Sun, 7 Jun</p>
+            <div class="icon"></div>
+            <div class="degrees">
+                <span>16ºc</span>
+                <span>11ºC</span>
+            </div>
+        </div>
+        <div class="week__day">
+            <p class="title">Mon, 8 Jun</p>
+            <div class="icon"></div>
+            <div class="degrees">
+                <span>16ºc</span>
+                <span>11ºC</span>
+            </div>
+        </div>
+        <div class="week__day">
+            <p class="title">Tue, 9 Jun</p>
+            <div class="icon"></div>
+            <div class="degrees">
+                <span>16ºc</span>
+                <span>11ºC</span>
+            </div>
+        </div>
+        <div class="week__day">
+            <p class="title">Wen, 10 Jun</p>
+            <div class="icon"></div>
+            <div class="degrees">
+                <span>16ºc</span>
+                <span>11ºC</span>
+            </div>
+        </div>
     </div>
     <div class="all-view__todays today">
         <h2 class="today__title-today">Today´s Highlights</h2>
         <ul class="today__info info-today">
-            <li class="today-element info-today__wind">
+            <li class=" info-today__wind">
                 <p class="title">Wind status</p>
                 <h2 class="number">7mph</h2>
+                <span class="icon">
+                    <IconWindToday/>
+                    <p>WSW</p>
+                </span>
+
             </li>
-            <li class="today-element info-today__humidity">
+            <li class=" info-today__humidity">
                 <p class="title">Humidity</p>
                 <h2 class="number">84%</h2>
                 <div class="range-container">
-                    <div class="labels">
+                    <div class="range-container__labels">
                         <label>0</label>
                         <label>50</label>
                         <label>100</label>
                     </div>
-                    <input type="range" min="0" max="100" value="50" class="slider" id="myRange" readonly>
+                    <input class="range-container__slider" type="range" min="0" max="100" value="50" id="myRange" readonly>
                 </div>
             </li>
-            <li class="today-element info-today__visibility">
+            <li class=" info-today__visibility">
                 <p class="title">Visibility</p>
                 <h2 class="number">6,4 miles</h2>
             </li>
-            <li class="today-element info-today__pressure">
+            <li class=" info-today__pressure">
                 <p class="title">Air Presure</p>
                 <h2 class="number">998 bm</h2>
             </li>
@@ -53,44 +97,7 @@
 </template>
 
 <style scoped lang="scss" >
-.range-container {
- width: 100%;
- position: relative;
-}
 
-.labels {
- display: flex;
- justify-content: space-between;
- padding: 0 10px;
-}
-
-.slider {
- -webkit-appearance: none;
- width: 100%;
- height: 15px;
- border-radius: 5px;
- background: linear-gradient(to right, yellow 0%, yellow 50%, #d3d3db 50%, #d3d3db 100%);
- outline: none;
- opacity: 0.7;
- -webkit-transition: .2s;
- transition: opacity .2s;
-}
-
-.slider:hover {
- opacity: 1;
-  cursor: not-allowed; /* Establece el cursor del mouse en 'no permitido' cuando se pasa por encima del control deslizante */
-}
-
-
-
-
-
-
-
-
-
-
-    
 .all-view{
     display: grid;
     grid-template-columns: 1fr;
@@ -98,8 +105,17 @@
     padding: 3em 6em;
     padding-bottom: 2em;
 
+    
+    
+    @media (max-width: map-get($map: $breakpoint-em, $key: bp-small-pc)) {
+        padding: 3em;
+    }
+    @media (max-width: 48em) {
+        grid-template-rows: 4em 1fr 1fr 4em;
+        padding: 1em;
+    }
+
     &__mode{
-        background-color: rgb(66, 194, 66);
         @include flex($direction: row, $align_items: flex-start, $justify_content: flex-end);
     }
     .mode{
@@ -118,40 +134,107 @@
     }
     
     &__week{
-        background-color: darkmagenta;
+        @include flex($direction: row, $align_items: center, $justify_content: space-between);
+        flex-wrap: wrap;
+
+        @media (max-width: map-get($map: $breakpoint-em, $key: bp-small-pc)) {
+         min-height: 8em;
+        }
+    }
+    .week{
+        &__day{
+            padding: 1em 0;
+            background-color: map-get($map: $colors, $key: c-medium-blue);
+            width: 8em;
+            margin: 1em 0;
+            @include flex($direction: column, $align_items: center, $justify_content: space-evenly);
+
+            @media (max-width: 48em) {
+                margin: 1em;
+            }
+
+            .title {
+                font-size: map-get($map: $font-size, $key: fs-small-title);
+                padding-bottom: 0.5em;
+            }
+            .icon {
+                width: 6em;
+                height: 7em;
+                background-color: darkkhaki;
+            }
+            .degrees{
+                @include flex($direction: row, $align_items: center, $justify_content: space-evenly);
+                padding-top: .5em;
+            }
+        }
     }
 
     &__todays{
-        background-color:crimson;
         padding: 0;
         margin: 0;
     }
     .today{
         &__title-today{
             font-size: 2em;
+            padding: 1em 0 .7em 0;
         }
         &__info{
             list-style: none;
             display: grid;
-            grid-template-columns: repeat(2, 3fr);
-            grid-template-rows: repeat(2, 2fr);
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: 3fr 2.5fr;
             gap: 2em 3em;
-            background-color: coral;
+            @media (max-width: 46em) {
+                grid-template-columns: 1fr;
+            }
+            
         }
     }
     .info-today{
-        .today-element {
-            @include flex($direction: column, $align_items: center, $justify_content: space-between);
-            background-color: map-get($map: $colors, $key: c-medium-blue); 
-            padding: 1.5em;
-            .title{
-                font-size: map-get($map: $font-size, $key: fs-small-title);
-                padding-bottom: .5em;
-            }
-            .number{
-                font-size: 3em;
+        &__wind{
+            @extend %today-weather-box;
+            .icon{
+                padding-top: 1em;
+                @include flex($direction: center, $align_items: center, $justify_content: center);
             }
         }
+        &__humidity{
+            @extend %today-weather-box;
+            .range-container {
+                width: 100%;
+                position: relative;
+                padding: 0 2rem;
+                margin-top: 1em;
+
+                &__labels{
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 0 10px;
+                }
+
+                &__slider {
+                    width: 100%;
+                    height: 15px;
+                    border-radius: 5px;
+                    background: linear-gradient(to right, yellow 0%, yellow 50%, #d3d3db 50%, #d3d3db 100%);
+                    outline: none;
+                    opacity: 0.7;
+                    -webkit-transition: .2s;
+                    transition: opacity .2s;
+                }
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+        &__visibility{
+            @extend %today-weather-box;
+        }
+        &__pressure{
+            @extend %today-weather-box;
+        }
+        
     }
 
     &__message{

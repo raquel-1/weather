@@ -1,6 +1,7 @@
 <script setup>
 
 import IconCros from"@/components/icons/IconCros.vue"
+const emit = defineEmits(['toggleComponent'])
 
 
 </script>
@@ -11,7 +12,7 @@ import IconCros from"@/components/icons/IconCros.vue"
     
     
         <div class="aside__button button">
-            <button  class="button__cros">
+            <button  class="button__cros"  @click="emit('toggleComponent')">
                 <IconCros/>
             </button>
         </div>
@@ -42,17 +43,30 @@ import IconCros from"@/components/icons/IconCros.vue"
     
     .aside{
         width: 100%;
-        height: 100%;
         background-color: map-get($map: $colors, $key: c-medium-blue);
         padding: 3em;
         margin: 0;
         overflow: hidden;
         min-width: 26.5em;
+
+
         
     
         display:grid;
         grid-template-rows:  4em 4em 1fr;
         grid-template-columns: 1fr;
+
+
+        @media (max-width: map-get($map: $breakpoint-em, $key: bp-column)) {
+            min-height: 100vh;
+            min-width: 100vw;
+
+        }
+
+        @media (max-width: 48em) {
+            padding: 1em;
+        }
+
     
         &__button{
             @include flex($direction: row, $align_items: flex-start, $justify_content: flex-end);

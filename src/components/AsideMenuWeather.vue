@@ -1,4 +1,8 @@
+<script setup>
+const emit = defineEmits(['toggleComponent'])
+//defino mi emit pra no tener q hacer <button @click="$emit('someEvent')">click me</button>
 
+</script>
 
 <template>
 
@@ -6,7 +10,7 @@
     
     
         <div class="aside__buttons">
-            <button class="button-search">Search for places</button>
+            <button class="button-search" @click="emit('toggleComponent')" >Search for places</button>
             <button class="button-diana">.</button>
         </div>
         <div class="aside__info info">
@@ -33,10 +37,8 @@
     
     
     .aside{
-        width: 20%;
-        height: 100%;
+        width: 100%;
         background-color: map-get($map: $colors, $key: c-medium-blue);
-        padding: 3em;
         margin: 0;
         overflow: hidden;
         min-width: 26.5em;
@@ -44,6 +46,14 @@
     
         display:grid;
         grid-template-rows:  4em 1fr;
+
+        padding: 3em;
+
+        @media (max-width: map-get($map: $breakpoint-em, $key:bp-column)) {
+            min-height: 100vh;
+            min-width: 100vw;
+            padding: 1em;
+        }
     
     
         &__buttons{

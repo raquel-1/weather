@@ -27,6 +27,10 @@ import AllView from './components/AllView.vue'
   display: grid;
   grid-template-columns: minmax(27rem ,30%) 1fr;
 
+  @media (max-width: map-get($map: $breakpoint-em, $key: bp-column)) {
+    grid-template-columns: 1fr;
+  }
+
 }
 
 

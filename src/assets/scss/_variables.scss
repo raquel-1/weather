@@ -4,7 +4,8 @@ $colors: (
     "c-dark-blue": #002244,
     "c-medium-blue": #4568b0,
     "c-blue": #0000ff,
-    "c-grey": #a8a7a7
+    "c-grey": #a8a7a7,
+    "c-yellow": #f7f766
 );
 
 $sizes: (
@@ -27,14 +28,10 @@ $font-size: (
     "fs-button": 1em,
     "fs-big-degre": 8em,
     "fs-big-weather": 3em,
-    "fs-small-title": 1em,
+    "fs-small-title": 1em
+);
 
-    "fs-detail-paragraph": 0.7rem,
-    "fs-extra-small-button": 0.8rem,
-    "fs-extra-small": 0.9rem,
-    "fs-small": 1rem,
-    "fs-medium": 1.5rem,
-    "fs-big": 2rem,
-    "fs-extra-big": 3rem,
-    "fs-titular-big": 4rem
+$breakpoint-em: (
+    "bp-small-pc": 78em,
+    "bp-column": 80.25em
 );
