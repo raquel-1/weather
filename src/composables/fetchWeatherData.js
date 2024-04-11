@@ -1,63 +1,30 @@
-import { buildForecastUrl } from '@/composables/buildForecastUrl.js';
-import { ref, watchEffect } from 'vue';
+import { buildtUrl } from '@/composables/buildtUrl.js';
+import { watchEffect } from 'vue';
 
-export function fetchWeatherData(latitude, longitude, temperatureUnit) {
-    const data = ref(null);
-    const error = ref(null);
+export function fetchWeatherData(latitude, longitude, temperatureUnit, weatherStore) {
 
-    const url = buildForecastUrl(latitude, longitude, temperatureUnit);
+  /** no hace falta declarar data y error porque estan en el store */
+
+    const url = buildtUrl(latitude, longitude, temperatureUnit);//creo mi URL
 
     const fetchData = async () => {
         try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const json = await response.json();
-        data.value = json;
+
+            const response = await fetch(url);
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const json = await response.json();
+
+            weatherStore.setData(json); //guarda/actualiza los datos en el store
+
         } catch (err) {
-        error.value = err;
+            weatherStore.setError(err); //guarda/actualiza los datos en el store
         }
     };
 
-    watchEffect(() => {
+    watchEffect(() => {// es importante poruqe si cambia la url
         fetchData();
     });
-
-    return { data, error };
 }
-
-   
-/**
- * 
-import { ref, watchEffect, toValue } from 'vue'
-
-export function useFetch(url) {
-  const data = ref(null)
-  const error = ref(null)
-
-  const fetchData = () => {
-    // reset state before fetching..
-    data.value = null
-    error.value = null
-
-    fetch(toValue(url))
-      .then((res) => res.json())
-      .then((json) => (data.value = json))
-      .catch((err) => (error.value = err))
-  }
-
-  watchEffect(() => {
-    fetchData()
-  })
-
-  return { data, error }
-} 
-
-
-
-
-
-
-
- */

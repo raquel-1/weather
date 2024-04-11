@@ -1,17 +1,19 @@
 import { defineStore } from 'pinia';
-//store q almacena el fetch
-export const useWeatherStore = defineStore({
- id: 'weather',
- state: () => ({
-    data: null,
-    error: null,
- }),
- actions: {
-    setData(data) {
-      this.data = data;
-    },
-    setError(error) {
-      this.error = error;
-    },
- },
+import { ref } from 'vue';
+
+export const useWeatherStore = defineStore('weather', () => {
+    
+ const data = ref(null);
+ const error = ref(null);
+
+ const setData = (newData) => {//actualiza const reactiva data
+    data.value = newData;
+ };
+
+ const setError = (newError) => {//actualiza const reactiva error
+    error.value = newError;
+ };
+
+ return { data, error, setData, setError };
 });
+

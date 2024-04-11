@@ -10,5 +10,5 @@ const weatherIcons = {
     "77": () => import('./IconSnowGrains.vue'),//
     "95": () => import('./IconThunderstorm.vue'),//
     "96, 99": () => import('./IconThunderstormHail.vue')//
-   };
+};
    
