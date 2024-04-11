@@ -1,15 +1,14 @@
 <script setup>
-
 import IconCros from"@/components/icons/IconCros.vue"
-const emit= defineEmits(['toggleComponent'])
-
-
-
 
 import { useWeatherStore } from "@/stores/weatherStore.js"
 import { fetchWeatherData } from "@/composables/fetchWeatherData.js"
 import cities from "@/composables/cities.js"
 
+//controla abrir cerrar 
+const emit= defineEmits(['toggleComponent'])
+
+//para modificar store
 const weatherStore = useWeatherStore()
 
 const handleCityClick = (cityName) => {
@@ -44,6 +43,12 @@ const handleCityClick = (cityName) => {
             </li>
             <li class="result__location" @click="handleCityClick('Alicante')">
                 <h3  class="title">Alicante</h3>
+            </li>
+            <li class="result__location" @click="handleCityClick('New York')">
+                <h3  class="title">New York</h3>
+            </li>
+            <li class="result__location" @click="handleCityClick('London')">
+                <h3  class="title">London</h3>
             </li>
             
         </ul>
@@ -116,7 +121,7 @@ const handleCityClick = (cityName) => {
 
         &__result{
             display: grid;
-            grid-template-rows: repeat(3, 3em); 
+            grid-template-rows: repeat(5, 3em); 
             gap: 0.625em; 
             list-style: none;
         }

@@ -1,12 +1,23 @@
 <script setup>
 import IconWindToday from "@/components/icons/IconWindToday.vue"
-import IconFog from "@/components/icons/iconsWeather/IconFog.vue"
+
+import { useWeatherStore } from "@/stores/weatherStore.js"
+import { formatDate } from "@/composables/formatDate.js"
+import { getWeatherIcon } from "@/composables/getWeatherIcon.js"
 
 
-//para el slider
-import { ref } from 'vue';
 
-const sliderValue = ref(84);
+//originalArray.slice(5)
+const weatherStore = useWeatherStore()
+weatherStore?.data.daily.time.slice(5)//elimino primera pos
+
+
+//parseFloat(value).toFixed(decimals)
+
+function truncate(value) {
+    return Math.floor(parseFloat(value));
+}
+
 
 </script>
 
@@ -14,59 +25,29 @@ const sliderValue = ref(84);
 
 <section class="all-view">
     <div class="all-view__mode mode">
-        <button class="mode__button-leter">ºC</button>
+        <button class="mode__button-leter mode__button-leter--selected">ºC</button>
         <button class="mode__button-leter">ºF</button>
     </div>
     <div class="all-view__week week">
-        <div class="week__day">
-            <p class="title">Tomorrow</p>
+        <div class="week__day" v-for="(item, index) in weatherStore?.data.daily.time.slice(1)" :key="index">
+            <p class="title">{{ index === 0 ? 'Tomorrow' : formatDate(item) }}</p>
             <div class="icon">
-                <IconFog/>
+                <component :is="getWeatherIcon(weatherStore?.data.daily.weather_code[index])" />
             </div>
             <div class="degrees">
-                <span>16ºc</span>
-                <span>11ºC</span>
+                <span>{{truncate( weatherStore?.data.daily.temperature_2m_max[index])  }}ºC</span>
+                <span class="dark">{{ truncate(weatherStore?.data.daily.temperature_2m_min[index])  }}ºC</span>
             </div>
         </div>
-        <div class="week__day">
-            <p class="title">Sun, 7 Jun</p>
-            <div class="icon"></div>
-            <div class="degrees">
-                <span>16ºc</span>
-                <span>11ºC</span>
-            </div>
-        </div>
-        <div class="week__day">
-            <p class="title">Mon, 8 Jun</p>
-            <div class="icon"></div>
-            <div class="degrees">
-                <span>16ºc</span>
-                <span>11ºC</span>
-            </div>
-        </div>
-        <div class="week__day">
-            <p class="title">Tue, 9 Jun</p>
-            <div class="icon"></div>
-            <div class="degrees">
-                <span>16ºc</span>
-                <span>11ºC</span>
-            </div>
-        </div>
-        <div class="week__day">
-            <p class="title">Wen, 10 Jun</p>
-            <div class="icon"></div>
-            <div class="degrees">
-                <span>16ºc</span>
-                <span>11ºC</span>
-            </div>
-        </div>
+
+
     </div>
     <div class="all-view__todays today">
         <h2 class="today__title-today">Today´s Highlights</h2>
         <ul class="today__info info-today">
             <li class=" info-today__wind">
                 <p class="title">Wind status</p>
-                <h2 class="number">7mph</h2>
+                <h2 class="number">{{weatherStore?.data.current.wind_speed_10m }} m/s</h2>
                 <span class="icon">
                     <IconWindToday/>
                     <p>WSW</p>
@@ -75,7 +56,7 @@ const sliderValue = ref(84);
             </li>
             <li class=" info-today__humidity">
                 <p class="title">Humidity</p>
-                <h2 class="number">84%</h2>
+                <h2 class="number">{{weatherStore?.data.current.relative_humidity_2m }}%</h2>
                 <div class="range-container">
                     <div class="range-container__labels">
                         <label>0</label>
@@ -85,20 +66,19 @@ const sliderValue = ref(84);
                     <input
                         class="range-container__slider"
                         type="range"
-                        :value="sliderValue"
                         readonly
-                        :style="`--value: ${sliderValue};`"
+                        :style="`--value: ${weatherStore?.data.current.relative_humidity_2m };`"
                         max="100"
                     />
                 </div>
             </li>
             <li class=" info-today__visibility">
-                <p class="title">Visibility</p>
-                <h2 class="number">6,4 miles</h2>
+                <p class="title">Cloud Cover</p>
+                <h2 class="number">{{weatherStore?.data.current.cloud_cover }} %</h2>
             </li>
             <li class=" info-today__pressure">
                 <p class="title">Air Presure</p>
-                <h2 class="number">998 bm</h2>
+                <h2 class="number">{{truncate(weatherStore?.data.current.surface_pressure )}} mb</h2>
             </li>
         </ul>
     </div>
@@ -146,6 +126,12 @@ const sliderValue = ref(84);
             cursor: pointer;
             font-size: map-get($map: $font-size, $key: fs-button);
             padding: 1em;
+
+            &--selected{
+                background-color: map-get($map: $colors, $key: c-white);
+                color: map-get($map: $colors, $key: c-black);  
+            }
+
         }
     }
     
@@ -181,6 +167,10 @@ const sliderValue = ref(84);
                 @include flex($direction: row, $align_items: center, $justify_content: space-between);
                 padding-top: .5em;
                 width: 70%;
+                font-size: 1em;
+                .dark{
+                    opacity: .7;
+                }
             }
         }
     }

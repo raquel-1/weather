@@ -1,17 +1,19 @@
 <script setup>
-import IconClearSky from '@/components/icons/iconsWeather/IconClearSky.vue'
 import IconUbi from '@/components/icons/IconUbi.vue'
 import IconLocation from '@/components/icons/IconLocation.vue'
 import { fetchWeatherData } from "@/composables/fetchWeatherData.js"
-
 import { useWeatherStore } from "@/stores/weatherStore.js"
+import { formatDate } from "@/composables/formatDate.js"
+import { getWeatherIcon } from "@/composables/getWeatherIcon.js"
+import { getWeatherName } from "@/composables/getWeatherIcon.js"
+
+
 const weatherStore = useWeatherStore()
 
 console.log(weatherStore.data);
 
 const emit = defineEmits(['toggleComponent'])
 //defino mi emit pra no tener q hacer <button @click="$emit('someEvent')">click me</button>
-
 
 
 
@@ -27,9 +29,7 @@ function findCityName(latitude, longitude) {
 }
 
 const handleCityMadrid = () => {
-    
-        fetchWeatherData(40.4165, -3.7026, 'celsius', weatherStore)
-    
+    fetchWeatherData(40.4165, -3.7026, 'celsius', weatherStore)
 };
 
 
@@ -49,12 +49,12 @@ const handleCityMadrid = () => {
     </div>
     <div class="aside__info info">
         <div class="info__icon">
-            <IconClearSky />
+            <component :is="getWeatherIcon(weatherStore?.data.current.weather_code)" />
         </div>
         <div class="info__degres"><h1 class="number">{{weatherStore?.data.current.temperature_2m }}ºC</h1></div>
-        <div class="info__weather"><h2 class="weather">Sun</h2></div>
+        <div class="info__weather"><h2 class="weather">{{  getWeatherName(weatherStore?.data.current.weather_code)}}</h2></div>
         <div class="info__time time">
-            <div class="time__date">{{weatherStore?.data.latitude }}</div>
+            <div class="time__date">Today . {{formatDate( weatherStore?.data.current.time)}}</div>
             <div class="time__ubi">
                 <IconUbi/>
                 <div >{{ findCityName(weatherStore.data.latitude, weatherStore.data.longitude) }}</div>
