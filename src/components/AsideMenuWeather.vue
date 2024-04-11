@@ -1,9 +1,8 @@
 <script setup>
-import { ref } from 'vue';
-
 import IconClearSky from '@/components/icons/iconsWeather/IconClearSky.vue'
 import IconUbi from '@/components/icons/IconUbi.vue'
-
+import IconLocation from '@/components/icons/IconLocation.vue'
+import { fetchWeatherData } from "@/composables/fetchWeatherData.js"
 
 import { useWeatherStore } from "@/stores/weatherStore.js"
 const weatherStore = useWeatherStore()
@@ -20,12 +19,19 @@ const emit = defineEmits(['toggleComponent'])
 import cities from "@/composables/cities.js"
 
 function findCityName(latitude, longitude) {
- const city = cities.find(c => c.latitude == latitude && c.longitude == longitude);
- return city ? city.name : 'Unknown City';
+    const roundedLatitude = parseFloat(latitude.toFixed(2));
+    const roundedLongitude = parseFloat(longitude.toFixed(2));
+
+    const city = cities.find(c => parseFloat(c.latitude.toFixed(2)) === roundedLatitude && parseFloat(c.longitude.toFixed(2)) === roundedLongitude);
+    return city ? city.name : 'Unknown City';
 }
 
+const handleCityMadrid = () => {
+    
+        fetchWeatherData(40.4165, -3.7026, 'celsius', weatherStore)
+    
+};
 
-const cityName = ref(findCityName(weatherStore.data.latitude, weatherStore.data.longitude));
 
 </script>
 
@@ -37,7 +43,9 @@ const cityName = ref(findCityName(weatherStore.data.latitude, weatherStore.data.
     
     <div class="aside__buttons">
         <button class="button-search" @click="emit('toggleComponent')" >Search for places</button>
-        <button class="button-diana">.</button>
+        <button class="button-diana"  @click="handleCityMadrid()">
+            <IconLocation/>
+        </button>
     </div>
     <div class="aside__info info">
         <div class="info__icon">
@@ -49,7 +57,7 @@ const cityName = ref(findCityName(weatherStore.data.latitude, weatherStore.data.
             <div class="time__date">{{weatherStore?.data.latitude }}</div>
             <div class="time__ubi">
                 <IconUbi/>
-                <div >{{ cityName }}</div>
+                <div >{{ findCityName(weatherStore.data.latitude, weatherStore.data.longitude) }}</div>
             </div>
             
         </div>
@@ -105,12 +113,13 @@ const cityName = ref(findCityName(weatherStore.data.latitude, weatherStore.data.
             .button-diana{
                 background-color: map-get($map: $colors, $key: c-grey); 
                 color: map-get($map: $colors, $key: c-white); 
-                width: 3em;
-                height: 3em;
+                width: 2.5em;
+                height: 2.5em;
                 border: none; 
                 border-radius: 100%;
                 cursor: pointer;
                 font-size: map-get($map: $font-size, $key: fs-button);
+                @include flex($direction: row, $align_items: center, $justify_content: center);
             }
         }
         &__info{
