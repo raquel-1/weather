@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue';
 
 import IconClearSky from '@/components/icons/iconsWeather/IconClearSky.vue'
 import IconUbi from '@/components/icons/IconUbi.vue'
@@ -11,6 +12,20 @@ console.log(weatherStore.data);
 
 const emit = defineEmits(['toggleComponent'])
 //defino mi emit pra no tener q hacer <button @click="$emit('someEvent')">click me</button>
+
+
+
+
+//para ver el nombre de la ciudad
+import cities from "@/composables/cities.js"
+
+function findCityName(latitude, longitude) {
+ const city = cities.find(c => c.latitude == latitude && c.longitude == longitude);
+ return city ? city.name : 'Unknown City';
+}
+
+
+const cityName = ref(findCityName(weatherStore.data.latitude, weatherStore.data.longitude));
 
 </script>
 
@@ -28,13 +43,13 @@ const emit = defineEmits(['toggleComponent'])
         <div class="info__icon">
             <IconClearSky />
         </div>
-        <div class="info__degres"><h1 class="number">{{weatherStore?.data.current.temperature_2m }} ºC</h1></div>
+        <div class="info__degres"><h1 class="number">{{weatherStore?.data.current.temperature_2m }}ºC</h1></div>
         <div class="info__weather"><h2 class="weather">Sun</h2></div>
         <div class="info__time time">
-            <div class="time__date">Today . Fri, 5 Jun</div>
+            <div class="time__date">{{weatherStore?.data.latitude }}</div>
             <div class="time__ubi">
                 <IconUbi/>
-                <div >Helsinki</div>
+                <div >{{ cityName }}</div>
             </div>
             
         </div>
