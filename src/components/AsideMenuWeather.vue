@@ -2,6 +2,8 @@
 const emit = defineEmits(['toggleComponent'])
 //defino mi emit pra no tener q hacer <button @click="$emit('someEvent')">click me</button>
 
+import IconWindToday from '@/components/icons/IconWindToday.vue'
+import IconUbi from '@/components/icons/IconUbi.vue'
 </script>
 
 <template>
@@ -15,15 +17,17 @@ const emit = defineEmits(['toggleComponent'])
         </div>
         <div class="aside__info info">
             <div class="info__icon">
-                <span class="icon">
-                    partly_cloudy_day
-                </span>
+                <IconWindToday />
             </div>
             <div class="info__degres"><h1 class="number">15ºC</h1></div>
             <div class="info__weather"><h2 class="weather">Sun</h2></div>
             <div class="info__time time">
                 <div class="time__date">Today . Fri, 5 Jun</div>
-                <div class="time__ubi">Helsinki</div>
+                <div class="time__ubi">
+                    <IconUbi/>
+                    <div >Helsinki</div>
+                </div>
+                
             </div>
             
         </div>
@@ -31,9 +35,9 @@ const emit = defineEmits(['toggleComponent'])
     </aside>
      
       
-    </template>
+</template>
     
-    <style scoped lang="scss" >
+<style scoped lang="scss" >
     
     
     .aside{
@@ -121,6 +125,7 @@ const emit = defineEmits(['toggleComponent'])
                 }
                 &__ubi{
                     @include flex($direction: row, $align_items: flex-start, $justify_content: center);
+                    margin-top: .5em;
                 }
             }
     
@@ -131,7 +136,4 @@ const emit = defineEmits(['toggleComponent'])
     
     }
     
-    
-    
-    
-    </style>
+</style>

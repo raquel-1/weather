@@ -104,7 +104,7 @@ const emit = defineEmits(['toggleComponent'])
         &__result{
             display: grid;
             grid-template-rows: repeat(3, 3em); 
-            gap: 10px; 
+            gap: 0.625em; 
             list-style: none;
         }
         .result{
@@ -112,14 +112,14 @@ const emit = defineEmits(['toggleComponent'])
                 height: 3em;
                 @include flex($direction: row, $align_items: center, $justify_content: flex-start);
 
-                border: none;
-                transition: border 0.3s ease; 
+                border: 0.1em solid transparent;;
+                transition: border 1s ease, padding 1s ease;
                 padding: 0.1em; // Añadir relleno para compensar el espacio del borde
 
                 .title{
                     position: absolute;
                     font-size: map-get($map: $font-size, $key: fs-small-title);
-                    margin-left: 1rem;
+                    margin-left: 1em;
                 }
 
                 &:hover{

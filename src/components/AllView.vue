@@ -1,6 +1,13 @@
 <script setup>
 import IconWindToday from "@/components/icons/IconWindToday.vue"
 
+
+
+
+import { ref } from 'vue';
+
+const sliderValue = ref(84);
+
 </script>
 
 <template>
@@ -73,7 +80,14 @@ import IconWindToday from "@/components/icons/IconWindToday.vue"
                         <label>50</label>
                         <label>100</label>
                     </div>
-                    <input class="range-container__slider" type="range" min="0" max="100" value="50" id="myRange" readonly>
+                    <input
+                        class="range-container__slider"
+                        type="range"
+                        :value="sliderValue"
+                        readonly
+                        :style="`--value: ${sliderValue};`"
+                        max="100"
+                    />
                 </div>
             </li>
             <li class=" info-today__visibility">
@@ -163,8 +177,9 @@ import IconWindToday from "@/components/icons/IconWindToday.vue"
                 background-color: darkkhaki;
             }
             .degrees{
-                @include flex($direction: row, $align_items: center, $justify_content: space-evenly);
+                @include flex($direction: row, $align_items: center, $justify_content: space-between);
                 padding-top: .5em;
+                width: 70%;
             }
         }
     }
@@ -195,7 +210,7 @@ import IconWindToday from "@/components/icons/IconWindToday.vue"
             @extend %today-weather-box;
             .icon{
                 padding-top: 1em;
-                @include flex($direction: center, $align_items: center, $justify_content: center);
+                @include flex($direction: row, $align_items: center, $justify_content: center);
             }
         }
         &__humidity{
@@ -203,29 +218,39 @@ import IconWindToday from "@/components/icons/IconWindToday.vue"
             .range-container {
                 width: 100%;
                 position: relative;
-                padding: 0 2rem;
+                padding: 0 2em;
                 margin-top: 1em;
 
                 &__labels{
-                    display: flex;
-                    justify-content: space-between;
-                    padding: 0 10px;
+                    @include flex($direction: row, $align_items: center, $justify_content: space-between);
+                    padding: 0 .8em;
                 }
 
                 &__slider {
+                    -webkit-appearance: none; /* Quita los estilos predeterminados */
+                    appearance: none;
                     width: 100%;
-                    height: 15px;
-                    border-radius: 5px;
-                    background: linear-gradient(to right, yellow 0%, yellow 50%, #d3d3db 50%, #d3d3db 100%);
-                    outline: none;
-                    opacity: 0.7;
-                    -webkit-transition: .2s;
-                    transition: opacity .2s;
+                    height: 1em;
+                    border-radius: .5em;
+                    background: linear-gradient(to right,  map-get($map: $colors, $key: c-yellow) 0%,  map-get($map: $colors, $key: c-yellow) calc((var(--value) / 100) * 100%),  
+                                                map-get($map: $colors, $key: c-white) calc((var(--value) / 100) * 100%),  map-get($map: $colors, $key: c-white) 100%);  
+                    
+                    /* Para navegadores basados en WebKit (Chrome, Safari) */
+                    &::-webkit-slider-thumb {
+                        -webkit-appearance: none;
+                        visibility: hidden;
+                    }
+                    /* Para Firefox */
+                    &::-moz-range-thumb {
+                    visibility: hidden;
+                    }
+                    /* Para Internet Explorer */
+                    &::-ms-thumb {
+                        visibility: hidden;
+                    }
+
                 }
 
-                &:hover {
-                    opacity: 1;
-                }
             }
         }
         &__visibility{
