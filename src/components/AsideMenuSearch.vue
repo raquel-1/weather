@@ -1,15 +1,29 @@
 <script setup>
 
 import IconCros from"@/components/icons/IconCros.vue"
-const emit = defineEmits(['toggleComponent'])
+const emit= defineEmits(['toggleComponent']);
 
+
+
+
+import { useWeatherStore } from "@/stores/weatherStore.js"; 
+import { fetchWeatherData } from "@/composables/fetchWeatherData.js";
+import cities from "@/composables/cities.js"; 
+
+const weatherStore = useWeatherStore();
+
+const handleCityClick = (cityName) => {
+    const city = cities.find(c => c.name === cityName);
+    if (city) {
+        fetchWeatherData(city.latitude, city.longitude, 'celsius', weatherStore);
+    }
+};
 
 </script>
 
 <template>
 
     <aside class="aside">
-    
     
         <div class="aside__button button">
             <button  class="button__cros"  @click="emit('toggleComponent')">
@@ -21,7 +35,7 @@ const emit = defineEmits(['toggleComponent'])
                 <button class="button-search">Search</button>
         </div> 
         <ul class="aside__result result">
-            <li class="result__location">
+            <li class="result__location" @click="handleCityClick('Madrid')">
                 <h3 class="title">Madrid</h3>
             </li>
             <li class="result__location">
@@ -33,11 +47,9 @@ const emit = defineEmits(['toggleComponent'])
             
         </ul>
         
-    
     </aside>
-     
       
-    </template>
+</template>
     
 <style scoped lang="scss" >
     

@@ -28,3 +28,4 @@ export function fetchWeatherData(latitude, longitude, temperatureUnit, weatherSt
         fetchData();
     });
 }
+//celsius	 fahrenheit

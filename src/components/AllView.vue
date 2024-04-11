@@ -1,9 +1,9 @@
 <script setup>
 import IconWindToday from "@/components/icons/IconWindToday.vue"
+import IconFog from "@/components/icons/iconsWeather/IconFog.vue"
 
 
-
-
+//para el slider
 import { ref } from 'vue';
 
 const sliderValue = ref(84);
@@ -20,7 +20,9 @@ const sliderValue = ref(84);
     <div class="all-view__week week">
         <div class="week__day">
             <p class="title">Tomorrow</p>
-            <div class="icon"></div>
+            <div class="icon">
+                <IconFog/>
+            </div>
             <div class="degrees">
                 <span>16ºc</span>
                 <span>11ºC</span>
@@ -174,7 +176,6 @@ const sliderValue = ref(84);
             .icon {
                 width: 6em;
                 height: 7em;
-                background-color: darkkhaki;
             }
             .degrees{
                 @include flex($direction: row, $align_items: center, $justify_content: space-between);

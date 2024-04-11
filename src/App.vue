@@ -5,36 +5,7 @@ import AllView from './components/AllView.vue'
 
 
 
-/*
-import { ref, watchEffect } from 'vue';
-import { fetchWeatherData } from '@/composables/fetchWeatherData.js';
 
-const data = ref(null);
-const error = ref(null);
-
-const fetchData = async () => {
- try {
-    const latitude = 51.5074; // londres
-    const longitude = -0.1278;
-    const temperatureUnit = "celsius";
-    const weatherData = await fetchWeatherData(latitude, longitude, temperatureUnit);
-    data.value = weatherData;
- } catch (err) {
-    error.value = err;
- }
-};
-
-watchEffect(() => {
- fetchData();
-}); 
-
-
-watchEffect(() => {
- if (data.value) {
-   console.log(data.value);
- }
-});
-*/
 
 </script>
 

@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue';
 
-import AsideMenuWeather from "@/components/AsideMenuWeather.vue";
-import AsideMenuSearch from "@/components/AsideMenuSearch.vue";
+import AsideMenuWeather from "@/components/AsideMenuWeather.vue"
+import AsideMenuSearch from "@/components/AsideMenuSearch.vue"
 
 const weathertoday = ref(true);
 
