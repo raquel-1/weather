@@ -2,23 +2,18 @@
 import AsideMenu from "./components/AsideMenu.vue";
 import AllView from './components/AllView.vue'
 
+import { useWeatherStore } from "@/stores/weatherStore.js"
 
-
-
-
-
+const weatherStore = useWeatherStore()
 </script>
 
 <template>
 
-<main class="main">
 
-<AsideMenu/>
-
-<AllView/>
-
+<main class="main" v-if="weatherStore.data  != null ">
+ <AsideMenu/>
+ <AllView/>
 </main>
- 
   
 </template>
 

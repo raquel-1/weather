@@ -1,38 +1,50 @@
 <script setup>
-const emit = defineEmits(['toggleComponent'])
-//defino mi emit pra no tener q hacer <button @click="$emit('someEvent')">click me</button>
 
 import IconClearSky from '@/components/icons/iconsWeather/IconClearSky.vue'
 import IconUbi from '@/components/icons/IconUbi.vue'
+
+
+import { useWeatherStore } from "@/stores/weatherStore.js"
+const weatherStore = useWeatherStore()
+
+console.log(weatherStore.data);
+
+const emit = defineEmits(['toggleComponent'])
+//defino mi emit pra no tener q hacer <button @click="$emit('someEvent')">click me</button>
+
 </script>
 
 <template>
 
+
     <aside class="aside">
     
     
-        <div class="aside__buttons">
-            <button class="button-search" @click="emit('toggleComponent')" >Search for places</button>
-            <button class="button-diana">.</button>
+    <div class="aside__buttons">
+        <button class="button-search" @click="emit('toggleComponent')" >Search for places</button>
+        <button class="button-diana">.</button>
+    </div>
+    <div class="aside__info info">
+        <div class="info__icon">
+            <IconClearSky />
         </div>
-        <div class="aside__info info">
-            <div class="info__icon">
-                <IconClearSky />
-            </div>
-            <div class="info__degres"><h1 class="number">15ºC</h1></div>
-            <div class="info__weather"><h2 class="weather">Sun</h2></div>
-            <div class="info__time time">
-                <div class="time__date">Today . Fri, 5 Jun</div>
-                <div class="time__ubi">
-                    <IconUbi/>
-                    <div >Helsinki</div>
-                </div>
-                
+        <div class="info__degres"><h1 class="number">{{weatherStore?.data.current.temperature_2m }} ºC</h1></div>
+        <div class="info__weather"><h2 class="weather">Sun</h2></div>
+        <div class="info__time time">
+            <div class="time__date">Today . Fri, 5 Jun</div>
+            <div class="time__ubi">
+                <IconUbi/>
+                <div >Helsinki</div>
             </div>
             
         </div>
-    
-    </aside>
+        
+    </div>
+
+</aside>
+
+
+   
      
       
 </template>

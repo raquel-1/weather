@@ -1,21 +1,22 @@
 <script setup>
 
 import IconCros from"@/components/icons/IconCros.vue"
-const emit= defineEmits(['toggleComponent']);
+const emit= defineEmits(['toggleComponent'])
 
 
 
 
-import { useWeatherStore } from "@/stores/weatherStore.js"; 
-import { fetchWeatherData } from "@/composables/fetchWeatherData.js";
-import cities from "@/composables/cities.js"; 
+import { useWeatherStore } from "@/stores/weatherStore.js"
+import { fetchWeatherData } from "@/composables/fetchWeatherData.js"
+import cities from "@/composables/cities.js"
 
-const weatherStore = useWeatherStore();
+const weatherStore = useWeatherStore()
 
 const handleCityClick = (cityName) => {
-    const city = cities.find(c => c.name === cityName);
+    const city = cities.find(c => c.name === cityName)
     if (city) {
-        fetchWeatherData(city.latitude, city.longitude, 'celsius', weatherStore);
+        fetchWeatherData(city.latitude, city.longitude, 'celsius', weatherStore)
+        emit('toggleComponent')
     }
 };
 
@@ -38,10 +39,10 @@ const handleCityClick = (cityName) => {
             <li class="result__location" @click="handleCityClick('Madrid')">
                 <h3 class="title">Madrid</h3>
             </li>
-            <li class="result__location">
+            <li class="result__location" @click="handleCityClick('Barcelona')">
                 <h3  class="title">Barcelona</h3>
             </li>
-            <li class="result__location">
+            <li class="result__location" @click="handleCityClick('Alicante')">
                 <h3  class="title">Alicante</h3>
             </li>
             

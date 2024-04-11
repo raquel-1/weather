@@ -3,19 +3,23 @@ import './assets/scss/index.scss'
 import { createApp } from 'vue'
 import App from './App.vue'
 
-createApp(App).mount('#app')
 
+import { createPinia } from 'pinia'
+
+import { fetchWeatherData } from "@/composables/fetchWeatherData.js"
+import { useWeatherStore } from '@/stores/weatherStore.js'
 
 //pinia
 
-import { createPinia } from 'pinia';
 
-const app = createApp(App);
-const pinia = createPinia();
+const app = createApp(App)
+const pinia = createPinia()
 
-app.use(pinia);
-app.mount('#app');
+app.use(pinia)
+app.mount('#app')
 
 
+const weatherStore = useWeatherStore()
+fetchWeatherData(40.4165, -3.7026, 'celsius', weatherStore)
 
 
