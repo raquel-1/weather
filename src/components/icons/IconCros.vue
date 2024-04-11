@@ -9,9 +9,11 @@
 .icon {
   width: 2em; /* Tamaño del icono */
   height: 2em;
-}
 
-.icon path{
+  path{
     fill: map-get( $map: $colors, $key: c-medium-blue)
 }
+}
+
+
 </style>

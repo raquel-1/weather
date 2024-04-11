@@ -2,7 +2,7 @@
 const emit = defineEmits(['toggleComponent'])
 //defino mi emit pra no tener q hacer <button @click="$emit('someEvent')">click me</button>
 
-import IconWindToday from '@/components/icons/IconWindToday.vue'
+import IconClearSky from '@/components/icons/iconsWeather/IconClearSky.vue'
 import IconUbi from '@/components/icons/IconUbi.vue'
 </script>
 
@@ -17,7 +17,7 @@ import IconUbi from '@/components/icons/IconUbi.vue'
         </div>
         <div class="aside__info info">
             <div class="info__icon">
-                <IconWindToday />
+                <IconClearSky />
             </div>
             <div class="info__degres"><h1 class="number">15ºC</h1></div>
             <div class="info__weather"><h2 class="weather">Sun</h2></div>

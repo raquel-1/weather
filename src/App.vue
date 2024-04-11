@@ -5,7 +5,7 @@ import AllView from './components/AllView.vue'
 
 
 
-
+/*
 import { ref, watchEffect } from 'vue';
 import { fetchWeatherData } from '@/composables/fetchWeatherData.js';
 
@@ -34,7 +34,7 @@ watchEffect(() => {
    console.log(data.value);
  }
 });
-
+*/
 
 </script>
 
