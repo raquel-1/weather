@@ -1,9 +1,10 @@
 <script setup>
 import IconWindToday from "@/components/icons/IconWindToday.vue"
-
+import { ref} from 'vue';
 import { useWeatherStore } from "@/stores/weatherStore.js"
 import { formatDate } from "@/composables/formatDate.js"
 import { getWeatherIcon } from "@/composables/getWeatherIcon.js"
+import { fetchWeatherData } from "@/composables/fetchWeatherData.js"
 
 
 
@@ -12,11 +13,24 @@ const weatherStore = useWeatherStore()
 weatherStore?.data.daily.time.slice(5)//elimino primera pos
 
 
-//parseFloat(value).toFixed(decimals)
-
 function truncate(value) {
     return Math.floor(parseFloat(value));
 }
+
+
+
+//ºC O ºF
+
+const selectedUnit = ref('celsius')
+//:class="{ 'mode__button-leter--selected': selectedUnit === 'celsius' }"
+
+const convert = (value) => {
+    fetchWeatherData(weatherStore?.data.latitude, weatherStore?.data.longitude, value, weatherStore) 
+    selectedUnit.value = value;
+
+};
+
+
 
 
 </script>
@@ -25,8 +39,12 @@ function truncate(value) {
 
 <section class="all-view">
     <div class="all-view__mode mode">
-        <button class="mode__button-leter mode__button-leter--selected">ºC</button>
-        <button class="mode__button-leter">ºF</button>
+        <button class="mode__button-leter " @click="convert('celsius')" :class="{ 'mode__button-leter--selected': weatherStore?.temperatureUnit === 'celsius' }">
+            ºC
+        </button>
+        <button class="mode__button-leter" @click="convert('fahrenheit')" :class="{ 'mode__button-leter--selected': weatherStore?.temperatureUnit === 'fahrenheit' }">
+            ºF
+        </button>
     </div>
     <div class="all-view__week week">
         <div class="week__day" v-for="(item, index) in weatherStore?.data.daily.time.slice(1)" :key="index">
@@ -35,8 +53,23 @@ function truncate(value) {
                 <component :is="getWeatherIcon(weatherStore?.data.daily.weather_code[index])" />
             </div>
             <div class="degrees">
-                <span>{{truncate( weatherStore?.data.daily.temperature_2m_max[index])  }}ºC</span>
-                <span class="dark">{{ truncate(weatherStore?.data.daily.temperature_2m_min[index])  }}ºC</span>
+
+                <span v-if="weatherStore?.temperatureUnit==='fahrenheit'" >
+                    {{ truncate(weatherStore?.data.daily.temperature_2m_max[index])  }}ºF
+                </span>
+                <span v-else >
+                    {{ truncate(weatherStore?.data.daily.temperature_2m_max[index])  }}ºC
+                </span>
+
+
+                <span v-if="weatherStore?.temperatureUnit==='fahrenheit'" class="dark">
+                    {{ truncate(weatherStore?.data.daily.temperature_2m_min[index])  }}ºF
+                </span>
+                <span v-else class="dark">
+                    {{ truncate(weatherStore?.data.daily.temperature_2m_min[index])  }}ºC
+                </span>
+
+
             </div>
         </div>
 

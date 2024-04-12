@@ -28,10 +28,21 @@ function findCityName(latitude, longitude) {
     return city ? city.name : 'Unknown City';
 }
 
+
 const handleCityMadrid = () => {
-    fetchWeatherData(40.4165, -3.7026, 'celsius', weatherStore)
+    fetchWeatherData(40.4165, -3.7026, weatherStore?.temperatureUnit, weatherStore)
 };
 
+/*
+ <span v-if="weatherStore?.temperatureUnit==='fahrenheit'" >
+                    {{ truncate(weatherStore?.data.daily.temperature_2m_max[index])  }}ºF
+                </span>
+                <span v-else >
+                    {{ truncate(weatherStore?.data.daily.temperature_2m_max[index])  }}ºC
+                </span>
+<h1 class="number">{{weatherStore?.data.current.temperature_2m }}ºC</h1>
+
+*/
 
 </script>
 
@@ -51,7 +62,17 @@ const handleCityMadrid = () => {
         <div class="info__icon">
             <component :is="getWeatherIcon(weatherStore?.data.current.weather_code)" />
         </div>
-        <div class="info__degres"><h1 class="number">{{weatherStore?.data.current.temperature_2m }}ºC</h1></div>
+        <div class="info__degres">
+
+            <h1 v-if="weatherStore?.temperatureUnit==='fahrenheit'" class="number">
+                    {{ weatherStore?.data.current.temperature_2m }}ºF
+            </h1>
+            <h1 v-else class="number">
+                {{ weatherStore?.data.current.temperature_2m  }}ºC
+            </h1>
+
+            
+        </div>
         <div class="info__weather"><h2 class="weather">{{  getWeatherName(weatherStore?.data.current.weather_code)}}</h2></div>
         <div class="info__time time">
             <div class="time__date">Today . {{formatDate( weatherStore?.data.current.time)}}</div>

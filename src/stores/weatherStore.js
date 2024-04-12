@@ -4,6 +4,7 @@ import { ref } from 'vue';
 export const useWeatherStore = defineStore('weather', () => {
     const data = ref(null);
     const error = ref(null);
+    const temperatureUnit = ref(null);
     const isLoading = ref(false); // Agrega una referencia para el estado de carga
 
     const setData = (newData) => {
@@ -16,6 +17,11 @@ export const useWeatherStore = defineStore('weather', () => {
         isLoading.value = false; // Actualiza el estado de carga cuando ocurre un error
     };
 
+    const setTemperatureUnit = (newUnit) => {
+        temperatureUnit.value = newUnit;
+        isLoading.value = false;
+    };
+
     const startLoading = () => {
         isLoading.value = true; // Actualiza el estado de carga al comenzar a cargar datos
     };
@@ -25,9 +31,11 @@ export const useWeatherStore = defineStore('weather', () => {
             if (error.value) {
                 return `Error: ${error.value.message}`;
             }
-            return data.value;
-        }
+            return {
+                data: data.value,
+                temperatureUnit: temperatureUnit.value
+            };        }
     };
 
-    return { data, error, isLoading, setData, setError, startLoading, ...getters };
+    return { data, error, isLoading, temperatureUnit, setTemperatureUnit, setData, setError, startLoading, ...getters };
 });

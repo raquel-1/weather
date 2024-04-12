@@ -10,18 +10,8 @@ export default [
       longitude: 2.1734
    },
    {
-      name: "Alicante",
-      latitude: 38.3458,
-      longitude: -0.4824
-   },
-   {
-      name: "New York",
-      latitude: 40.7128,
-      longitude: -74.0060
-   },
-   {
-      name: "London",
-      latitude: 51.5074,
-      longitude: -0.1278
+      name: "Valencia",
+      latitude: 39.46975,
+      longitude: -0.37739
    }
 ];
