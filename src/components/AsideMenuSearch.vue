@@ -14,7 +14,7 @@ const weatherStore = useWeatherStore()
 const handleCityClick = (cityName) => {
     const city = cities.find(c => c.name === cityName)
     if (city) {
-        fetchWeatherData(city.latitude, city.longitude, 'celsius', weatherStore)
+        fetchWeatherData(city.latitude, city.longitude, weatherStore?.temperatureUnit, weatherStore)
         emit('toggleComponent')
     }
 };
