@@ -6,19 +6,13 @@ import { useWeatherStore } from "@/stores/weatherStore.js"
 import { formatDate } from "@/composables/formatDate.js"
 import { getWeatherIcon } from "@/composables/getWeatherIcon.js"
 import { getWeatherName } from "@/composables/getWeatherIcon.js"
+import cities from "@/composables/cities.js"
 
 
 const weatherStore = useWeatherStore()
 
-console.log(weatherStore.data);
-
 const emit = defineEmits(['toggleComponent'])
 //defino mi emit pra no tener q hacer <button @click="$emit('someEvent')">click me</button>
-
-
-
-//para ver el nombre de la ciudad
-import cities from "@/composables/cities.js"
 
 function findCityName(latitude, longitude) {
     const roundedLatitude = parseFloat(latitude.toFixed(2));
@@ -28,21 +22,9 @@ function findCityName(latitude, longitude) {
     return city ? city.name : 'Unknown City';
 }
 
-
 const handleCityMadrid = () => {
     fetchWeatherData(40.4165, -3.7026, weatherStore?.temperatureUnit, weatherStore)
 };
-
-/*
- <span v-if="weatherStore?.temperatureUnit==='fahrenheit'" >
-                    {{ truncate(weatherStore?.data.daily.temperature_2m_max[index])  }}ºF
-                </span>
-                <span v-else >
-                    {{ truncate(weatherStore?.data.daily.temperature_2m_max[index])  }}ºC
-                </span>
-<h1 class="number">{{weatherStore?.data.current.temperature_2m }}ºC</h1>
-
-*/
 
 </script>
 

@@ -1,6 +1,5 @@
 <script setup>
 import IconWindToday from "@/components/icons/IconWindToday.vue"
-import { ref} from 'vue';
 import { useWeatherStore } from "@/stores/weatherStore.js"
 import { formatDate } from "@/composables/formatDate.js"
 import { getWeatherIcon } from "@/composables/getWeatherIcon.js"
@@ -21,17 +20,9 @@ function truncate(value) {
 
 //ºC O ºF
 
-const selectedUnit = ref('celsius')
-//:class="{ 'mode__button-leter--selected': selectedUnit === 'celsius' }"
-
 const convert = (value) => {
     fetchWeatherData(weatherStore?.data.latitude, weatherStore?.data.longitude, value, weatherStore) 
-    selectedUnit.value = value;
-
 };
-
-
-
 
 </script>
 

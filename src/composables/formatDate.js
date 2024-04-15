@@ -1,4 +1,4 @@
-export  function formatDate(isoDateString) {
+export function formatDate(isoDateString) {
     const date = new Date(isoDateString);
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

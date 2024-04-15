@@ -18,6 +18,7 @@ export function fetchWeatherData(latitude, longitude, temperatureUnit, weatherSt
             const json = await response.json();
 
             weatherStore.setData(json); //guarda/actualiza los datos en el store
+            
             weatherStore.setTemperatureUnit(temperatureUnit); //guarda/actualiza de temperatura en el store
 
         } catch (err) {
