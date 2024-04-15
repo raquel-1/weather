@@ -19,7 +19,7 @@ console.log(weatherStore.error)
  <AsideMenu/>
  <AllView/>
 </main>
-<h1 v-else-if="!weatherStore.data">
+<h1 v-else-if="!weatherStore.data" class="load-message">
  Loading...
 </h1>
 <h1 v-else-if="weatherStore.error" class="error-message">
@@ -45,11 +45,13 @@ console.log(weatherStore.error)
   }
   
 }
+.load-message{
+  color: map-get($map: $colors, $key: c-white);
+  @extend %title-load-error;
+}
 .error-message {
     color: map-get($map: $colors, $key: c-red);
-    text-align: center;
-    font-size: 5em;
-    transform: translateY(50%);
+    @extend %title-load-error;
     
     .refresh-button {
       background-color: map-get($map: $colors, $key: c-red);
