@@ -1,5 +1,4 @@
 <script setup>
-import AllSliders from "@/components/AllSliders.vue"
 import AsideMenu from "./components/AsideMenu.vue";
 import AllView from './components/AllView.vue'
 import { useWeatherStore } from "@/stores/weatherStore.js"
@@ -27,8 +26,6 @@ console.log(weatherStore.error)
  Error...
  <button @click="refreshPage" class="refresh-button">Refresh</button>
 </h1>
-
-<AllSliders/>
   
 </template>
 
