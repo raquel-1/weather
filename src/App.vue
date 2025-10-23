@@ -1,33 +1,70 @@
 <script setup>
 import AsideMenu from "./components/AsideMenu.vue";
-import AllView from './components/AllView.vue'
-import { useWeatherStore } from "@/stores/weatherStore.js"
+import AllView from "./components/AllView.vue";
+import { useWeatherStore } from "@/stores/weatherStore.js";
+import { fetchWeatherData } from "@/composables/fetchWeatherData.js";
 
-const weatherStore = useWeatherStore()
+const weatherStore = useWeatherStore();
 
 function refreshPage() {
-      window.location.reload();
-  }
-console.log(weatherStore.error)
+  window.location.reload();
+}
 
+const initWeather = () => {
+  const defaultCity = {
+    name: "Madrid",
+    latitude: 40.4165,
+    longitude: -3.7026,
+  };
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position;
+        if (latitude && longitude) {
+          fetchWeatherData(latitude, longitude, weatherStore.temperatureUnit || 'celsius', weatherStore);
+          weatherStore.setCurrentCity("Your Location");
+        } else {
+          fetchWeatherData(defaultCity.latitude, defaultCity.longitude, 'celsius', weatherStore);
+          weatherStore.setCurrentCity(defaultCity.name);
+        }
+      },
+      (error) => {
+        console.warn("Geolocation failed, using default city.", error);
+        fetchWeatherData(defaultCity.latitude, defaultCity.longitude, 'celsius', weatherStore);
+        weatherStore.setCurrentCity(defaultCity.name);
+      }
+    );
+  } else {
+    fetchWeatherData(defaultCity.latitude, defaultCity.longitude, 'celsius', weatherStore);
+    weatherStore.setCurrentCity(defaultCity.name);
+  }
+};
+
+
+
+initWeather();
 </script>
 
 <template>
+  <div v-if="weatherStore">
+    <main v-if="weatherStore.data && !weatherStore.error" class="main">
+      <AsideMenu />
+      <AllView />
+    </main>
 
+    <h1 v-else-if="!weatherStore.data" class="load-message">
+      Loading...
+    </h1>
 
-<main class="main" v-if="weatherStore.data && !weatherStore.error">
- <AsideMenu/>
- <AllView/>
-</main>
-<h1 v-else-if="!weatherStore.data" class="load-message">
- Loading...
-</h1>
-<h1 v-else-if="weatherStore.error" class="error-message">
- Error...
- <button @click="refreshPage" class="refresh-button">Refresh</button>
-</h1>
-  
+    <h1 v-else-if="weatherStore.error" class="error-message">
+      Error...
+      <button @click="refreshPage" class="refresh-button">Refresh</button>
+    </h1>
+  </div>
 </template>
+
+
 
 <style scoped lang="scss" >
 

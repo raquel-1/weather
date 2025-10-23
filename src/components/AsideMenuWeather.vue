@@ -6,21 +6,11 @@ import { useWeatherStore } from "@/stores/weatherStore.js"
 import { formatDate } from "@/composables/formatDate.js"
 import { getWeatherIcon } from "@/composables/getWeatherIcon.js"
 import { getWeatherName } from "@/composables/getWeatherIcon.js"
-import cities from "@/composables/cities.js"
 
 
 const weatherStore = useWeatherStore()
 
 const emit = defineEmits(['toggleComponent'])
-//defino mi emit pra no tener q hacer <button @click="$emit('someEvent')">click me</button>
-
-function findCityName(latitude, longitude) {
-    const roundedLatitude = parseFloat(latitude.toFixed(2));
-    const roundedLongitude = parseFloat(longitude.toFixed(2));
-
-    const city = cities.find(c => parseFloat(c.latitude.toFixed(2)) === roundedLatitude && parseFloat(c.longitude.toFixed(2)) === roundedLongitude);
-    return city ? city.name : 'Unknown City';
-}
 
 const handleCityMadrid = () => {
     fetchWeatherData(40.4165, -3.7026, weatherStore?.temperatureUnit, weatherStore)
@@ -29,11 +19,7 @@ const handleCityMadrid = () => {
 </script>
 
 <template>
-
-
     <aside class="aside">
-    
-    
     <div class="aside__buttons">
         <button class="button-search" @click="emit('toggleComponent')" >Search for places</button>
         <button class="button-diana"  @click="handleCityMadrid()">
@@ -45,14 +31,12 @@ const handleCityMadrid = () => {
             <component :is="getWeatherIcon(weatherStore?.data.current.weather_code)" />
         </div>
         <div class="info__degres">
-
             <h1 v-if="weatherStore?.temperatureUnit==='fahrenheit'" class="number">
                     {{ weatherStore?.data.current.temperature_2m }}ºF
             </h1>
             <h1 v-else class="number">
                 {{ weatherStore?.data.current.temperature_2m  }}ºC
             </h1>
-
             
         </div>
         <div class="info__weather"><h2 class="weather">{{  getWeatherName(weatherStore?.data.current.weather_code)}}</h2></div>
@@ -60,35 +44,25 @@ const handleCityMadrid = () => {
             <div class="time__date">Today . {{formatDate( weatherStore?.data.current.time)}}</div>
             <div class="time__ubi">
                 <IconUbi/>
-                <div >{{ findCityName(weatherStore.data.latitude, weatherStore.data.longitude) }}</div>
+                <div>{{ weatherStore.currentCity }}</div>
+
             </div>
             
         </div>
-        
     </div>
 
 </aside>
-
-
-   
-     
-      
 </template>
     
 <style scoped lang="scss" >
-    
-    
     .aside{
         width: 100%;
         background-color: map-get($map: $colors, $key: c-medium-blue);
         margin: 0;
         overflow: hidden;
         min-width: 26.5em;
-        
-    
         display:grid;
         grid-template-rows:  4em 1fr;
-
         padding: 3em;
 
         @media (max-width: map-get($map: $breakpoint-em, $key:bp-column)) {
@@ -99,7 +73,6 @@ const handleCityMadrid = () => {
     
     
         &__buttons{
-    
     
             @include flex($direction: row, $align_items: center, $justify_content: space-between);
             overflow: hidden;
@@ -167,12 +140,7 @@ const handleCityMadrid = () => {
                     margin-top: .5em;
                 }
             }
-    
-        }
-        
-    
-    
-    
+        } 
     }
     
 </style>

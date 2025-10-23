@@ -1,20 +1,26 @@
+// src/stores/weatherStore.js
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 export const useWeatherStore = defineStore('weather', () => {
     const data = ref(null);
     const error = ref(null);
-    const temperatureUnit = ref(null);
-    const isLoading = ref(false); // Agrega una referencia para el estado de carga
+    const temperatureUnit = ref('celsius');
+    const isLoading = ref(false);
+
+    // search cities
+    const recentCities = ref(JSON.parse(localStorage.getItem('recentCities')) || []);
+
+    const currentCity = ref('');
 
     const setData = (newData) => {
         data.value = newData;
-        isLoading.value = false; // Actualiza el estado de carga cuando los datos se han cargado
+        isLoading.value = false;
     };
 
     const setError = (newError) => {
         error.value = newError;
-        isLoading.value = false; // Actualiza el estado de carga cuando ocurre un error
+        isLoading.value = false;
     };
 
     const setTemperatureUnit = (newUnit) => {
@@ -22,9 +28,31 @@ export const useWeatherStore = defineStore('weather', () => {
         isLoading.value = false;
     };
 
-    const startLoading = () => {
-        isLoading.value = true; // Actualiza el estado de carga al comenzar a cargar datos
+    const setCurrentCity = (cityName) => {
+        currentCity.value = cityName;
     };
+
+    const startLoading = () => {
+        isLoading.value = true;
+    };
+
+    // add city
+    const addRecentCity = (cityName) => {
+        const cleanName = cityName.trim();
+
+        // avoid duplicates
+        if (!recentCities.value.some(c => c.toLowerCase() === cleanName.toLowerCase())) {
+            recentCities.value.unshift(cleanName); //add to de front
+            if (recentCities.value.length > 10) {
+                recentCities.value.pop();
+            }
+        }
+    };
+
+    // Synchronises with localStorage automatically
+    watch(recentCities, (newVal) => {
+        localStorage.setItem('recentCities', JSON.stringify(newVal));
+    }, { deep: true });
 
     const getters = {
         getWeatherDataOrError: () => {
@@ -33,9 +61,24 @@ export const useWeatherStore = defineStore('weather', () => {
             }
             return {
                 data: data.value,
-                temperatureUnit: temperatureUnit.value
-            };        }
+                temperatureUnit: temperatureUnit.value,
+            };
+        },
     };
 
-    return { data, error, isLoading, temperatureUnit, setTemperatureUnit, setData, setError, startLoading, ...getters };
+    return {
+        data,
+        error,
+        isLoading,
+        temperatureUnit,
+        recentCities,
+        currentCity,
+        setCurrentCity,
+        addRecentCity,
+        setTemperatureUnit,
+        setData,
+        setError,
+        startLoading,
+        ...getters,
+    };
 });
