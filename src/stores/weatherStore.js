@@ -39,12 +39,10 @@ export const useWeatherStore = defineStore('weather', () => {
     // add city
     const addRecentCity = (cityName) => {
         const cleanName = cityName.trim();
-
-        // avoid duplicates
         if (!recentCities.value.some(c => c.toLowerCase() === cleanName.toLowerCase())) {
-            recentCities.value.unshift(cleanName); //add to de front
+            recentCities.value.unshift(cleanName);
             if (recentCities.value.length > 10) {
-                recentCities.value.pop();
+            recentCities.value.pop();
             }
         }
     };

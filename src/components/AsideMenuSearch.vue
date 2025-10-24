@@ -29,17 +29,20 @@ const handleSearch = async () => {
 const handleCityClick = (city) => {
   if (!city.latitude || !city.longitude) return;
 
+  const cityLabel = `${city.name} (${city.country})`;
+
   fetchWeatherData(
     city.latitude,
     city.longitude,
     weatherStore.temperatureUnit,
     weatherStore
   );
-  weatherStore.setCurrentCity(city.name);
-  weatherStore.addRecentCity(city.name);
+  weatherStore.setCurrentCity(cityLabel);
+  weatherStore.addRecentCity(cityLabel);
 
   emit("toggleComponent");
 };
+
 
 const handleRecentClick = async (cityName) => {
   loading.value = true;
@@ -80,9 +83,10 @@ const handleRecentClick = async (cityName) => {
         :key="index"
         @click="handleCityClick(city)"
       >
-        <h3 class="title">{{ city.name }}</h3>
+        <h3 class="title">{{ city.name }} ({{ city.country }})</h3>
       </li>
     </ul>
+
 
     <!-- CIUDADES RECIENTES -->
     <ul class="aside__result result" v-if="weatherStore.recentCities.length">
@@ -95,6 +99,7 @@ const handleRecentClick = async (cityName) => {
         <h3 class="title">{{ city }}</h3>
       </li>
     </ul>
+
   </aside>
 </template>
 
@@ -156,7 +161,6 @@ const handleRecentClick = async (cityName) => {
             }
         }
 
-        
         .result{
             &__location{
                 height: 2.8em;
@@ -179,14 +183,11 @@ const handleRecentClick = async (cityName) => {
                 }
             }
         }
-    
-    
     }
-  .aside__result.api {
-    max-height: 18em;   // altura máxima antes de que aparezca scroll
-    border-bottom: 0.1em solid map-get($map: $colors, $key: c-blue);
-    padding-bottom: 1em;
-    margin-bottom: 1em;
+    .aside__result.api {
+      max-height: 18em;   // altura máxima antes de que aparezca scroll
+      border-bottom: 0.1em solid map-get($map: $colors, $key: c-blue);
+      padding-bottom: 1em;
+      margin-bottom: 1em;
     }
-
     </style>
