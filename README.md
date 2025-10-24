@@ -1,35 +1,64 @@
-# weather
+<h1 align="center">🌍 WeatherApp — Vue 3 + Pinia + SCSS</h1>
 
-This template should help get you started developing with Vue 3 in Vite.
+<p align="center">
+  <strong>A modern weather application built with Vue 3, Pinia, and SCSS.</strong><br>
+  Search for cities and check real-time weather data using the Open-Meteo Geocoding API.
+</p>
 
-## Recommended IDE Setup
+<p align="center">
+  <img src="https://img.shields.io/badge/Vue-3-42b883?logo=vue.js" />
+  <img src="https://img.shields.io/badge/Pinia-State%20Manager-yellow" />
+  <img src="https://img.shields.io/badge/SCSS-Styling-cc6699?logo=sass" />
+  <img src="https://img.shields.io/badge/Vite-Bundler-646cff?logo=vite" />
+  <img src="https://img.shields.io/badge/OpenMeteo-API-blue" />
+</p>
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+---
 
-## Customize configuration
+## 🧭 Overview
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+**WeatherApp** is a lightweight **frontend application** built with **Vue 3** that allows users to search for cities and view current weather conditions.  
 
-## Project Setup
+It uses the **Open-Meteo Geocoding API** to retrieve geographic coordinates (`latitude`, `longitude`) from city names, and then fetches weather data based on those coordinates.
 
-```sh
+---
+
+## ✨ Features
+
+- 🔍 Real-time city search  
+- 🌍 Displays **city name and country** (`City (Country)`)  
+- 🌡️ Fetches live weather data from **Open-Meteo API**  
+- 💾 Persistent recent searches using **localStorage**  
+- ⚡ Global state management with **Pinia**  
+- 🎨 Responsive, clean UI styled with **SCSS**  
+- 💬 Fully frontend — no backend required  
+
+---
+
+## 🧠 Tech Stack
+
+| Technology | Description |
+|-------------|-------------|
+| **Vue 3 (Composition API)** | Main framework |
+| **Pinia** | State management |
+| **Vite** | Development and build tool |
+| **SCSS** | Custom modular styling |
+| **Open-Meteo API** | Weather and geolocation data |
+| **localStorage** | Persistent storage for user history |
+
+---
+
+## ⚙️ Local Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/raquel-1/weather.git
+
+# Enter the project folder
+cd weather
+
+# Install dependencies
 npm install
-```
 
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+# Start the development server
+npm run dev -- --open
